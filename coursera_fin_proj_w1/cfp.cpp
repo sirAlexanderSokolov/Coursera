@@ -1,53 +1,63 @@
-#include <iostream>
-#include <string>
+//=======================================================================
+//=================coursera final project definitions====================
+//=======================================================================
 #include "cfp.h"
-#include <numeric>
-#include <array>
 #include <sstream>
-#include <iomanip>
-
-//#include "cfp_date_functions.h"
-//#include "cfp_date_class.h"
-//setlocale(LC_ALL, "C.UTF-8");
-// yyyy-mm-dd
-using namespace std;
-int y = 1990;
-unsigned short int m = 7;
-unsigned short int d = 22;
-array <unsigned short int, 12> days_in_month = {31,28,31,30,31,30,31,31,30,31,30,31};
-string a1, a2, a3;
+//-----------------------------------------------------------------------
 int main () 
 {
-short int tmp;
-y<=0 ? tmp=-1 : tmp=1;
+Date date; //tmp vars
+string command, sdate, event, tmp, line; //tmp vars
+stringstream iss; //tmp vars
 
-int total_days = (365 * y)+((accumulate(days_in_month.begin(),days_in_month.begin()+m-1,0) + d) * tmp);
-cout<<to_string(total_days)<<'\n';
+programm_start:
 
-int yy,mm,dd;
-yy = total_days/365;
-yy<0 ? tmp=-1 : tmp=1;
-dd = total_days - (yy * 365);
-dd*=tmp;
-for (mm=0; dd>0; mm++) dd -= days_in_month[mm];
-dd+=days_in_month[mm-1];
+cout<<"============================\nGreetings! Enter the command\n============================\n";
+getline(cin, line);
+iss<<line;
 
-
-ostringstream ss;
-ss << setfill('0') << setw(4) << y << setw(1) << "-" << setw(2) << m << setw(1) << "-" << setw(2) << d;
-
-cout << ss.str();
-
-//cin >> a1 >> a2 >> a3;
-//Date d(1,1,1);
-
-//if (cfp_Parse_Date(a2,d)) cout << "ok";
-//else cout << "no";
-
-
-return 0;
+//parse input
+while (iss >> tmp) 
+{    
+if (command.empty()) command = tmp;
+else if (sdate.empty()) sdate = tmp;
+else if (event.empty()) event+=tmp;
+else event=event+" "+tmp;
 }
 
+//use command
+if (command == "Print") DB.Print();
+else if (command == "Exit") exit(0);
+else if (command == "Help") cout<<"PROPER COMMANDS:\nAdd yyyy-mm-dd event\nDel yyyy-mm-dd event\nDel yyyy-mm--dd\nFind yyyy-mm-dd\nPrint\nExit\n";
+else if (command == "Add") {if ( (cfp_Parse_Date(sdate, date)) && (!event.empty()) ) DB.Add(date, event);}
+else if (command == "Find") {if ( (cfp_Parse_Date(sdate, date)) )  DB.Find(date);}
+else if (command == "Del") 
+{
+    if(cfp_Parse_Date(sdate, date)) 
+    {  
+    if (!event.empty()) DB.Del(date, event);
+    else DB.Del(date);
+    }
+}
+else cout<<"Unknown command: "<<command<<'\n'<<'\n';
+
+//clear vars
+command.clear();
+command.shrink_to_fit();
+sdate.clear();
+sdate.shrink_to_fit();
+event.clear();
+event.shrink_to_fit();
+line.clear();
+tmp.clear();
+
+iss.clear();
+
+//go to start : line 13
+goto programm_start;
+return 0;
+}
+//-----------------------------------------------------------------------
 
 
 

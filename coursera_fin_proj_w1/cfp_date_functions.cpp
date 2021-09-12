@@ -9,24 +9,24 @@
 
 bool cfp_CheckDay(const int& day)
 {
-    if ((day>0)&&(day<32)) 
+    if ((day>0)&&(day<32)) return true;
+    else
     {
     cout<<"Day value is invalid: "<<to_string(day)<<'\n';
-    return true;
+    return false;
     }
-    else return false;
 }
 //-----------------------------------------------------------------
 //======= is month value correct ==================================
 
 bool cfp_CheckMonth(const int &month)
 {
-    if ((month>0)&&(month<13)) 
+    if ((month>0)&&(month<13)) return true;
+    else
     {
     cout<<"Month value is invalid: "<<to_string(month)<<'\n';
-    return true;
-    }
-    else return false;
+    return false;    
+    } 
 }
 //-----------------------------------------------------------------
 //======= string to date function =================================
@@ -34,9 +34,10 @@ bool cfp_CheckMonth(const int &month)
 
 bool cfp_Parse_Date(const string date_str, Date& date)
 {
-if (
-    ((count(date_str.begin(),date_str.end(),'-')==2)||(count(date_str.begin(),date_str.end(),'-')==3)) //year can be negative value
-    &&(date_str.find_first_not_of("1234567890-+")==string::npos) //string can contain only numers
+if  (
+    (!date_str.empty())
+    && ((count(date_str.begin(),date_str.end(),'-')==2)||(count(date_str.begin(),date_str.end(),'-')==3)) //year can be negative value
+    && (date_str.find_first_not_of("1234567890-+")==string::npos) //string can contain only numers
     )
 {
 //parser
@@ -50,7 +51,15 @@ try
     getline(ss1 >> ws ,month_str,'-');
     getline(ss1 >> ws ,day_str,'\n');
     //is values correct
-    if ( (year_str.empty()) || (month_str.empty()) || (day_str.empty()) || !(cfp_CheckDay(stoi(day_str))) || !(cfp_CheckMonth(stoi(month_str)))) goto error1; //Wrong date format
+    if  (
+        (year_str.empty()) ||
+        (month_str.empty()) || 
+        (day_str.empty()) || 
+        (!cfp_CheckDay(stoi(day_str))) || 
+        (!cfp_CheckMonth(stoi(month_str)))
+        ) goto error1; //Wrong date format
+
+    date(stoi(year_str),stoi(month_str),stoi(day_str));
     return true;
     }
 catch (exception &ex)

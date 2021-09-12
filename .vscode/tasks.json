@@ -8,10 +8,9 @@
 			"args": [
 				"-g",
 				"${file}",
-				"${fileDirname}/cfp_date_class.cpp",
-				"${fileDirname}/cfp_date_class.h",
 				"${fileDirname}/cfp_date_functions.cpp",
-				"${fileDirname}/cfp_date_functions.h",
+				"${fileDirname}/cfp_db_class.cpp",
+				"${fileDirname}/cfp_date_class.cpp",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],

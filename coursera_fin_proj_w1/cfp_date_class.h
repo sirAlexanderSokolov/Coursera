@@ -4,6 +4,9 @@
 
 #pragma once
 
+#ifndef CFP_DATE_CLS_H
+#define CFP_DATE_CLS_H
+
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -62,3 +65,4 @@ public:
 	friend istream& operator>>(istream& is, Date &item); //перегрузка оператора потокового вывода
 //=======================================================================
 };
+#endif
