@@ -20,6 +20,11 @@ m=month;
 d=day;
 }
 //-----------------------------------------------------------------------
+Date::Date(const Date &other) //конструктор копирования
+{
+this->operator()(other.GetYear(),other.GetMonth(),other.GetDay());
+}
+//-----------------------------------------------------------------------
 Date::~Date()
 {
 }
@@ -121,7 +126,7 @@ this->Days_To_Date(this->Date_To_Days()+1);
 return *this;
 }
 //-----------------------------------------------------------------------
-Date & Date::operator++(int value) //перегрузка постфиксного инкремента 
+Date & Date::operator++(int) //перегрузка постфиксного инкремента 
 {
 Date tmp(*this);
 this->Days_To_Date(this->Date_To_Days()+1);
@@ -134,7 +139,7 @@ this->Days_To_Date(this->Date_To_Days()-1);
 return *this;
 }
 //-----------------------------------------------------------------------
-Date & Date::operator--(int value) //перегрузка постфиксного декремента 
+Date & Date::operator--(int) //перегрузка постфиксного декремента 
 {
 Date tmp(*this);
 this->Days_To_Date(this->Date_To_Days()-1);
