@@ -8,9 +8,7 @@
 			"args": [
 				"-g",
 				"${file}",
-				"${fileDirname}/cfp_date_functions.cpp",
-				"${fileDirname}/cfp_db_class.cpp",
-				"${fileDirname}/cfp_date_class.cpp",
+				"${fileDirname}/c_task_tracker.cpp",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],
