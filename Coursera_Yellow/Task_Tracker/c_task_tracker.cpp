@@ -26,18 +26,18 @@ tuple<TasksInfo, TasksInfo> TeamTasks::PerformPersonTasks(
 TasksInfo result1;
 TasksInfo result2(Team[person]);
 
-for (int ii=0; ii<task_count; ii++)
+for (int ii=0; ii<task_count; ++ii)
 {  
-for (size_t i = 0; i < 3; i++) //find task ID and advance it
+for (size_t i = 0; i < 3; ++i) //find task ID and advance it
 {
     if (Team[person].find(static_cast<TaskStatus>(i))!=Team[person].end()) 
     {
-     Team[person][static_cast<TaskStatus>(i)]--;
-     Team[person][static_cast<TaskStatus>(i+1)]++;
+     ++Team[person][static_cast<TaskStatus>(i)];
+     ++Team[person][static_cast<TaskStatus>(i+1)];
      if (Team[person][static_cast<TaskStatus>(i)]<=0) Team[person].erase(static_cast<TaskStatus>(i));
      
-     result1[static_cast<TaskStatus>(i+1)]++;
-     result2[static_cast<TaskStatus>(i)]--;
+     ++result1[static_cast<TaskStatus>(i+1)];
+     --result2[static_cast<TaskStatus>(i)];
      if (result2[static_cast<TaskStatus>(i)]<=0) result2.erase(static_cast<TaskStatus>(i));
 
      break;
